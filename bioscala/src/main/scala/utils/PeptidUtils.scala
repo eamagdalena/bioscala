@@ -4,9 +4,7 @@ import Utils._
 
 object PeptidUtils {
 
-  lazy val massList = massTable.toList
-
-  lazy val massTable = {
+  lazy val massTable: Map[Char, Int] = {
 
     val v = fromFile("data/chapter2/tables/integer_mass_table_bis.txt")
 
@@ -15,6 +13,18 @@ object PeptidUtils {
       (ss(0).charAt(0), ss(1).toInt)
     }).toMap
 
+  }
+
+  lazy val massList = massTable.toList
+
+  lazy val massOnlyList = {
+
+    val v = fromFile("data/chapter2/tables/integer_mass_table_bis.txt")
+
+    v.map(s => {
+      val ss = s.split(' ')
+      ss(1).toInt
+    })
   }
 
   lazy val codonTable = {

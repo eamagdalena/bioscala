@@ -1,6 +1,6 @@
 name := "bioscala"
 
-scalaVersion := "2.10.2"
+scalaVersion := "2.10.3"
 
 libraryDependencies += "org.mongodb" %% "casbah" % "2.5.0"
 

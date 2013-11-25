@@ -25,14 +25,26 @@ object Subpeptides {
     res
   }
 
-  /* 20 */
-  def computeTheoricalSpectrum(peptide: String) = {
-    0 :: (mass(peptide) :: computeSubpeptides(peptide).map(mass)).sorted
+  def computeTheoricalLinearSpectrum(l: List[Int]): List[Int] = {
+
+    var res: List[Int] = Nil
+
+    for {
+      i <- 0 until l.size
+    } {
+      res = l.slice(0, i).sum :: res
+      res = l.slice(i, l.size).sum :: res
+    }
+
+    res
   }
 
-  val cache = new scala.collection.mutable.HashMap[Int, Long]().withDefaultValue(-1)
+  /* 20 */
+  def computeTheoricalSpectrum(peptide: String) = 0 :: (mass(peptide) :: computeSubpeptides(peptide).map(mass)).sorted
 
   /* 21 */
+  val cache = new scala.collection.mutable.HashMap[Int, Long]().withDefaultValue(-1)
+
   def computeNumberPeptids(targetMass: Int): Long = {
 
     val cached = cache(targetMass)
