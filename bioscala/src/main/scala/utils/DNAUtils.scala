@@ -6,6 +6,10 @@ object DNAUtils {
 
   type Genome = String
 
+  def dnaToRna(seq: Genome) = {
+    seq.replace('T', 'U')
+  }
+
   def reverseComplement(seq: Genome) = {
 
     seq.map(c => c match {

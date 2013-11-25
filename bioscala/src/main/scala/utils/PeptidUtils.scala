@@ -17,6 +17,32 @@ object PeptidUtils {
 
   }
 
+  lazy val codonTable = {
+
+    val v = fromFile("data/chapter2/tables/RNA_codon_table_1.txt")
+
+    v.map(s => {
+      val ss = s.split(' ')
+
+      if (ss.length == 2) (ss(0), ss(1))
+      else (ss(0), "")
+    }).toMap
+
+  }
+
+  lazy val codonTableChar = {
+
+    val v = fromFile("data/chapter2/tables/RNA_codon_table_1.txt")
+
+    v.map(s => {
+      val ss = s.split(' ')
+
+      if (ss.length == 2) (ss(0), ss(1).charAt(0))
+      else (ss(0), null)
+    }).toMap
+
+  }
+
   def mass(p: String): Int = {
     p.foldLeft(0)((i, c) => i + massTable(c))
   }
