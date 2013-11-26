@@ -3,7 +3,7 @@ package chapter2
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
-import chapter2.CyclopeptideSequencing._
+import CyclopeptideSequencing._
 import utils.Utils._
 
 @RunWith(classOf[JUnitRunner])
