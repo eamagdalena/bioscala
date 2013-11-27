@@ -15,19 +15,22 @@ object CyclopeptideSequencing {
 
   def compare(masses: List[Int], spectrum: List[Int]): RES = {
 
-    val partialSpectrum = computeTheoricalLinearSpectrum(masses)
+    val finalSpectrum = computeTheoricalSpectrum(masses) 
 
-    if (partialSpectrum == spectrum) {
-      println("MATCH " + masses + " => " + partialSpectrum)
+    if (finalSpectrum == spectrum) {
+      //println("MATCH " + masses + " => " + finalSpectrum)
       MATCH
-    } else if (partialSpectrum.exists(!spectrum.contains(_))) {
-      println("MISS " + masses + " => " + partialSpectrum)
-      MISSMATCH
     } else {
-      println("PARTIAL " + masses + " => " + partialSpectrum)
-      PARTIAL
-    }
+      val linearSpectrum = computeTheoricalLinearSpectrum(masses)
 
+      if (linearSpectrum.exists(!spectrum.contains(_))) {
+        //println("MISS " + masses + " => " + linearSpectrum)
+        MISSMATCH
+      } else {
+        //println("PARTIAL " + masses + " => " + linearSpectrum)
+        PARTIAL
+      }
+    }
   }
 
   def solveRec(partial: List[Int], spectrum: List[Int], solutions: List[List[Int]]): List[List[Int]] = {
@@ -49,8 +52,12 @@ object CyclopeptideSequencing {
     massOnlyList.foldLeft(List[List[Int]]())((s, mass) => solveRec(List(mass), spectrum, s))
   }
 
+  def solve(s: String): List[List[Int]] = {
+    solve(s.split(" ").map(_.toInt).toList)
+  }
+
   def solvePretty(s: String) = {
-    pretty(solve(s.split(" ").map(_.toInt).toList))
+    pretty(solve(s))
   }
 
   def pretty(l: List[List[Int]]): String = l.map(_ mkString "-").sorted.reverse.mkString(" ")
@@ -59,9 +66,9 @@ object CyclopeptideSequencing {
 
 object CSMain extends App {
 
-  //solveSimple("data/chapter2/dataset_22_4.txt", CyclopeptideSequencing.solvePretty)
+  solveSimple("data/chapter2/dataset_22_4.txt", CyclopeptideSequencing.solvePretty)
 
-  println(CyclopeptideSequencing.solvePretty("0 113 128 186 241 299 314 427"))
+  //println(CyclopeptideSequencing.solvePretty("0 113 128 186 241 299 314 427"))
 
   //println(computeTheoricalSpectrum(List(103, 137, 71, 131, 114, 113, 113, 115, 99, 97)))
 
