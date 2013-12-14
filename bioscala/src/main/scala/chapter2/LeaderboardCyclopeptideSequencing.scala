@@ -5,7 +5,7 @@ import utils.Utils._
 import utils.DNAUtils._
 import chapter2.Subpeptides._
 
-class LeaderboardCyclopeptideSequencing(N: Int, spectrum: List[Int]) {
+class LeaderboardCyclopeptideSequencing(N: Int, spectrum: List[Int], masses : List[Int] = massOnlyList) {
 
   lazy val INITIAL = (List[Int](), 0)
 
@@ -45,7 +45,7 @@ class LeaderboardCyclopeptideSequencing(N: Int, spectrum: List[Int]) {
 
     for {
       i <- l
-      j <- massOnlyList
+      j <- masses
       sol = j :: i._1
       solScore = score(sol)
       if (solScore > i._2) //  && sol.sum <= targetMass
